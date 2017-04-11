@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block page_content %}
+
+    <script src="/bundles/play/js/canvasjs.min.js"></script>
+
+    <h1>Scrum Dashboard</h1>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            {% for sprint in sprints %}
+                var chart{{ loop.index }} = new CanvasJS.Chart("chartContainer{{ loop.index }}", {
+                    title: {
+                        text: "{{ sprint.label }}",
+                        margin: 0
+                    },
+                    toolTip: {
+                        shared: true
+                    },
+                    axisX: {
+                        valueFormatString: "MMM",
+                        interval: 30,
+                        intervalType: "day"
+                    },
+                    axisY: {
+                        maximum: {{ sprint.cumulative }},
+                        interval: {{ sprint.cumulative / 10 }}
+                    },
+
+                    legend: {
+                        verticalAlign: "bottom",
+                        horizontalAlign: "center"
+                    },
+                    data: [
+                        {
+                            type: "stackedArea",
+                            name: "points",
+                            showInLegend: "false",
+                            dataPoints: [
+                                {% set cumulative = 0 %}
+                                {% for day in sprint.days %}
+                                    {% set cumulative = cumulative + day.total %}
+                                    {% if loop.index > 1 %},{% endif %}{x: new Date({{ day.date|date('Y, m, d') }}), y: {{ cumulative }}}
+                                {% endfor %}
+                            ]
+                        }
+                    ]
+                });
+
+                chart{{ loop.index }}.render();
+            {% endfor %}
+        }
+    </script>
+
+    {% for sprint in sprints %}
+        <div id="chartContainer{{ loop.index }}" style="height: 400px; width: 100%;">
+    {% endfor %}
+
+{% endblock %}
