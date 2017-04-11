@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace EndroidCalendarScrumBundle\Controller;
+namespace Endroid\Bundle\CalendarScrumBundle\Controller;
 
 use DateInterval;
 use DateTime;
@@ -17,9 +17,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-/**
- * @Route("/scrum")
- */
 class ScrumController extends Controller
 {
     /**
@@ -35,21 +32,13 @@ class ScrumController extends Controller
 
         $dateStart = new DateTime(date('Y-m').'-01 00:00:00');
         $dateEnd = clone $dateStart;
-//        $dateStart->sub(new DateInterval('P6M'));
-        $dateEnd->add(new DateInterval('P1M'));
+        $dateStart->sub(new DateInterval('P2M'));
+        $dateEnd->add(new DateInterval('P2M'));
 
-        $sprints = [];
-        $interval = new DateInterval('P1M');
-        $currentStart = clone $dateStart;
-        while ($currentStart < $dateEnd) {
-            $currentEnd = clone $currentStart;
-            $currentEnd->add($interval);
-            $sprints[] = $this->getSprintData($calendar, $currentStart, $currentEnd);
-            $currentStart->add($interval);
-        }
+        $sprint = $this->getSprintData($calendar, $dateStart, $dateEnd);
 
         return [
-            'sprints' => $sprints,
+            'sprint' => $sprint,
         ];
     }
 
@@ -71,9 +60,10 @@ class ScrumController extends Controller
         $interval = new DateInterval('P1D');
         while ($currentDate < $dateEnd) {
             $sprintData['days'][$currentDate->format('Y-m-d')] = [
-                'tasks' => [],
                 'total' => 0,
                 'date' => clone $currentDate,
+                'tooltip' => '',
+                'label' => '',
             ];
             $currentDate->add($interval);
         }
@@ -82,7 +72,8 @@ class ScrumController extends Controller
             $date = $event->getDateStart()->format('Y-m-d');
             preg_match('#(.*) (.)([0-9]+)#i', $event->getTitle(), $matches);
 
-            $sprintData['days'][$date]['tasks'][] = $matches[1];
+            $sprintData['days'][$date]['label'] = $date == date('Y-m-d') ? 'Today' : '';
+            $sprintData['days'][$date]['tooltip'] .= $matches[1].' ('.$matches[3].')<br />';
             $sprintData['days'][$date]['total'] += $matches[3];
             $sprintData['cumulative'] += $matches[3];
         }

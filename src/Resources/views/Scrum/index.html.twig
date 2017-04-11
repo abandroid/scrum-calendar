@@ -1,59 +1,64 @@
-{% extends 'base.html.twig' %}
+{% extends 'EndroidCalendarScrumBundle::layout.html.twig' %}
 
-{% block page_content %}
+{% block content %}
+    <div id="chartContainer" style="height: 400px; width: 100%;">
+{% endblock %}
 
-    <script src="/bundles/play/js/canvasjs.min.js"></script>
+{% block javascripts %}
 
-    <h1>Scrum Dashboard</h1>
+    {{ parent() }}
+
+    <script src="/bundles/endroidcalendarscrum/js/canvasjs.min.js"></script>
 
     <script type="text/javascript">
         window.onload = function() {
-            {% for sprint in sprints %}
-                var chart{{ loop.index }} = new CanvasJS.Chart("chartContainer{{ loop.index }}", {
-                    title: {
-                        text: "{{ sprint.label }}",
-                        margin: 0
-                    },
-                    toolTip: {
-                        shared: true
-                    },
-                    axisX: {
-                        valueFormatString: "MMM",
-                        interval: 30,
-                        intervalType: "day"
-                    },
-                    axisY: {
-                        maximum: {{ sprint.cumulative }},
-                        interval: {{ sprint.cumulative / 10 }}
-                    },
+            var chart = new CanvasJS.Chart("chartContainer", {
+                title: {
+                    text: "",
+                    margin: 0
+                },
+                toolTip: {
+                    shared: true
+                },
+                axisX: {
+                    valueFormatString: "D-MMM",
+                    interval: {{ sprint.days|length / 10 }},
+                    intervalType: "day"
+                },
+                legend: {
+                    verticalAlign: "bottom",
+                    horizontalAlign: "center"
+                },
+                data: [
+                    {
+                        type: "stackedArea",
+                        name: "story points",
+                        showInLegend: "false",
+                        dataPoints: [
+                            {% set max = 0 %}
+                            {% set month = null %}
+                            {% set cumulative = 0 %}
+                            {% for day in sprint.days %}
+                                {% set m = day.date|date('m') %}
+                                {% if m != month %}
+                                    {% set month = m %}
+                                    {% set cumulative = 0 %}
+                                {% endif %}
+                                {% set cumulative = cumulative + day.total %}
+                                {% set max = max(max, cumulative) %}
+                                {% if loop.index > 1 %},{% endif %}{x: new Date({{ day.date|date('Y') }}, {{ day.date|date('m') - 1 }}, {{ day.date|date('d') }}), y: {{ cumulative }}, indexLabelOrientation: 'vertical', indexLabel: "{{ day.label }}", toolTipContent: "{{ day.tooltip|raw }}" }
+                            {% endfor %}
+                        ]
+                    }
+                ],
+                axisY: {
+                    maximum: {{ max + 10 }},
+                    interval: {{ (sprint.cumulative / 10)|round(0, 'ceil') }}
+                },
+            });
 
-                    legend: {
-                        verticalAlign: "bottom",
-                        horizontalAlign: "center"
-                    },
-                    data: [
-                        {
-                            type: "stackedArea",
-                            name: "points",
-                            showInLegend: "false",
-                            dataPoints: [
-                                {% set cumulative = 0 %}
-                                {% for day in sprint.days %}
-                                    {% set cumulative = cumulative + day.total %}
-                                    {% if loop.index > 1 %},{% endif %}{x: new Date({{ day.date|date('Y, m, d') }}), y: {{ cumulative }}}
-                                {% endfor %}
-                            ]
-                        }
-                    ]
-                });
-
-                chart{{ loop.index }}.render();
-            {% endfor %}
+            chart.render();
         }
     </script>
-
-    {% for sprint in sprints %}
-        <div id="chartContainer{{ loop.index }}" style="height: 400px; width: 100%;">
-    {% endfor %}
 
 {% endblock %}
