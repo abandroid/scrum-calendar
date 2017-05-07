@@ -12,7 +12,7 @@ namespace Endroid\CalendarScrum\Bundle\Controller;
 use DateInterval;
 use DateTime;
 use Endroid\Calendar\Entity\Calendar;
-use Endroid\Calendar\Reader\IcalReader;
+use Endroid\CalendarScrum\SprintRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,21 +25,32 @@ class CalendarScrumController extends Controller
      */
     public function indexAction()
     {
-        $url = 'https://calendar.google.com/calendar/ical/b7paql3k47d28akdmmeml8dk6o%40group.calendar.google.com/private-5a45e8ab9886e577c524a76c139158e4/basic.ics';
-
-        $reader = new IcalReader();
-        $calendar = $reader->readFromUrl($url);
-
-        $dateStart = new DateTime(date('Y-m').'-01 00:00:00');
-        $dateEnd = clone $dateStart;
-        $dateStart->sub(new DateInterval('P2M'));
-        $dateEnd->add(new DateInterval('P2M'));
-
-        $sprint = $this->getSprintData($calendar, $dateStart, $dateEnd);
+        $sprints = $this->getSprintRepository()->findAll();
 
         return [
-            'sprint' => $sprint,
+            'sprints' => $sprints,
         ];
+    }
+
+    /**
+     * @Route("/{name}")
+     * @Template()
+     */
+    public function sprintAction($name)
+    {
+        $sprint = $this->getSprintRepository()->find($name);
+
+        return [
+            'sprint' => $sprint
+        ];
+    }
+
+    /**
+     * @return SprintRepository
+     */
+    protected function getSprintRepository()
+    {
+        return $this->get('endroid_calendar_scrum.sprint_repository');
     }
 
     /**
