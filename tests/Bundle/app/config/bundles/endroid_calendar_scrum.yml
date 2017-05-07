@@ -1,0 +1,12 @@
+endroid_calendar_scrum:
+    calendars:
+        tasks:
+            url: https://calendar.google.com/calendar/ical/b7paql3k47d28akdmmeml8dk6o%40group.calendar.google.com/private-5d2289d7c9251145e97946b4b7a1b17e/basic.ics
+            start: 2017-05-01
+            duration: 1 month
+            repeat: true
+        personal:
+            url: https://calendar.google.com/calendar/ical/jeroenvandenenden%40gmail.com/private-7fbe16075d8ed26738c0a97b64be4784/basic.ics
+            start: 2017-05-01
+            duration: 2 weeks
+            repeat: true

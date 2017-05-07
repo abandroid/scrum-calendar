@@ -1,8 +1,8 @@
 {
-    "name": "endroid/calendar-scrum-bundle",
-    "description": "Endroid Calendar Scrum Bundle",
+    "name": "endroid/calendar-scrum",
+    "description": "Calendar Scrum",
     "keywords": ["endroid", "calendar", "scrum", "bundle", "symfony"],
-    "homepage": "https://github.com/endroid/EndroidCalendarScrumBundle",
+    "homepage": "https://github.com/endroid/CalendarScrum",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -13,19 +13,20 @@
         }
     ],
     "require": {
-        "php": ">=5.4"
+        "php": ">=5.4",
+        "endroid/calendar": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.0"
+        "phpunit/phpunit": "^5.0|^6.0"
     },
     "autoload": {
         "psr-4": {
-            "Endroid\\Bundle\\CalendarScrumBundle\\": "src/"
+            "Endroid\\CalendarScrum\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Endroid\\Bundle\\CalendarScrumBundle\\Tests\\": "tests/"
+            "Endroid\\CalendarScrum\\Tests\\": "tests/"
         }
     },
     "config": {

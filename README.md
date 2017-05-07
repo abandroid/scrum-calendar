@@ -1,4 +1,4 @@
-Calendar Scrum Bundle
-=====================
+Calendar Scrum
+==============
 
 *By [endroid](http://endroid.nl/)*

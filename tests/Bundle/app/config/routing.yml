@@ -1,0 +1,4 @@
+EndroidCalendarScrumBundle:
+    resource: "@EndroidCalendarScrumBundle/Controller/"
+    type: annotation
+    prefix: /calendar-scrum

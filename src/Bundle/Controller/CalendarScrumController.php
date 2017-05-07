@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\Bundle\CalendarScrumBundle\Controller;
+namespace Endroid\CalendarScrum\Bundle\Controller;
 
 use DateInterval;
 use DateTime;
@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class ScrumController extends Controller
+class CalendarScrumController extends Controller
 {
     /**
      * @Route("/")
