@@ -1,12 +1,14 @@
 endroid_calendar_scrum:
-    sprints:
+    sprint_definitions:
         scrum_calendar_1:
+            label: Scrum Calendar 1
             url: https://calendar.google.com/calendar/ical/endroid.nl_evp8ubt3hc3p8ja46b4oh4jstg%40group.calendar.google.com/private-32ad3f69ae59bd9c54bc70ae92a819ee/basic.ics
-            start: 2017-05-01
-            interval: P1M
+            date_start: '2017-05-01'
+            date_interval: P1M
             repeat: true
         scrum_calendar_2:
+            label: Scrum Calendar 2
             url: https://calendar.google.com/calendar/ical/endroid.nl_sgs8cbpahis6842auvn9vrnsjc%40group.calendar.google.com/private-e9dcba7da65fd42e46c920b00056f091/basic.ics
-            start: 2017-05-01
-            interval: P2W
+            date_start: '2017-05-01'
+            date_interval: P2W
             repeat: true

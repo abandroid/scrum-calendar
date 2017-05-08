@@ -8,11 +8,13 @@
 
     {{ parent() }}
 
-    <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
+
+    {% set sprint = sprintDefinition.sprint %}
 
     <script type="text/javascript">
         window.onload = function() {
-            var chart = new CanvasJS.Chart("chartContainer", {
+            let chart = new CanvasJS.Chart("chartContainer", {
                 title: {
                     text: "",
                     margin: 0
@@ -22,7 +24,7 @@
                 },
                 axisX: {
                     valueFormatString: "D-MMM",
-                    interval: {{ sprint.durationInDays|length / 10 }},
+                    interval: {{ sprint.dayCount / 10 }},
                     intervalType: "day"
                 },
                 legend: {
@@ -32,28 +34,28 @@
                 data: [
                     {
                         type: "stackedArea",
-                        name: "story points",
+                        name: "{{ sprintDefinition.label }}",
                         showInLegend: "false",
                         dataPoints: [
                             {% set max = 0 %}
-                            {% set month = null %}
                             {% set cumulative = 0 %}
-                            {% for day in sprint.durationInDays %}
-                                {% set m = day.date|date('m') %}
-                                {% if m != month %}
-                                    {% set month = m %}
-                                    {% set cumulative = 0 %}
-                                {% endif %}
-                                {% set cumulative = cumulative + day.total %}
+                            {% for date, userStories in sprint.userStoriesByDay %}
+                                {% set tooltip = userStories|keys|join('<br />') %}
+                                {% set dayCumulative = 0 %}
+                                {% for storyPoints in userStories %}
+                                    {% set dayCumulative = dayCumulative + storyPoints %}
+                                {% endfor %}
+                                {% set cumulative = cumulative + dayCumulative %}
                                 {% set max = max(max, cumulative) %}
-                                {% if loop.index > 1 %},{% endif %}{x: new Date({{ day.date|date('Y') }}, {{ day.date|date('m') - 1 }}, {{ day.date|date('d') }}), y: {{ cumulative }}, indexLabelOrientation: 'vertical', indexLabel: "{{ day.label }}", toolTipContent: "{{ day.tooltip|raw }}" }
+
+                                {x: new Date('{{ date }}'), y: {{ cumulative }}, indexLabelOrientation: 'vertical', indexLabel: "{% if date == 'now'|date('Y-m-d') %}Today{% endif %}", toolTipContent: "{{ tooltip|raw }}" }{% if not loop.last %},{% endif %}
                             {% endfor %}
                         ]
                     }
                 ],
                 axisY: {
                     maximum: {{ max + 10 }},
-                    interval: {{ (sprint.cumulative / 10)|round(0, 'ceil') }}
+                    interval: {{ (max / 10)|round(0, 'ceil') }}
                 },
             });
 

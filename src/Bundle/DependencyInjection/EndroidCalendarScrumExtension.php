@@ -9,7 +9,9 @@
 
 namespace Endroid\CalendarScrum\Bundle\DependencyInjection;
 
-use Endroid\CalendarScrum\Sprint;
+use DateInterval;
+use DateTime;
+use Endroid\CalendarScrum\SprintDefinition;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -30,12 +32,16 @@ class EndroidCalendarScrumExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        $sprintManagerDefinition = $container->getDefinition('endroid_calendar_scrum.sprint_repository');
+        $sprintManagerDefinition = $container->getDefinition('endroid_calendar_scrum.sprint_definition_registry');
 
-        foreach ($config['sprints'] as $sprint) {
-            $sprintDefinition = new Definition(Sprint::class);
-            $sprintDefinition->setArguments([$sprint['name'], $sprint['url'], $sprint['start'], $sprint['interval'], $sprint['repeat']]);
-            $sprintManagerDefinition->addMethodCall('add', [$sprintDefinition]);
+        foreach ($config['sprint_definitions'] as $name => $sprint) {
+            $dateStartDefinition = new Definition(DateTime::class);
+            $dateStartDefinition->addArgument($sprint['date_start']);
+            $dateIntervalDefinition = new Definition(DateInterval::class);
+            $dateIntervalDefinition->addArgument($sprint['date_interval']);
+            $sprintDefinition = new Definition(SprintDefinition::class);
+            $sprintDefinition->setArguments([$sprint['label'], $sprint['url'], $dateStartDefinition, $dateIntervalDefinition, $sprint['repeat']]);
+            $sprintManagerDefinition->addMethodCall('set', [$name, $sprintDefinition]);
         }
     }
 }
