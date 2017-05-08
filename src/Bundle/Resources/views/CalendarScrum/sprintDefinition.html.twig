@@ -1,22 +1,37 @@
 {% extends 'EndroidCalendarScrumBundle::layout.html.twig' %}
 
 {% block content %}
-    <div id="chartContainer" style="height: 400px; width: 100%;">
-{% endblock %}
-
-{% block javascripts %}
-
-    {{ parent() }}
-
-    <script src="/bundles/endroidcalendarscrum/js/canvasjs.min.js"></script>
 
     {% set sprint = sprintDefinition.sprint %}
+
+    <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+
+    <br />
+
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th><strong>Date</strong></th>
+            <th><strong>User story</strong></th>
+            <th><strong>Story points</strong></th>
+        </tr>
+        {% for userStory in sprint.userStories %}
+            {% if userStory.date.format('U') >= '-1 day'|date('U') %}
+            <tr>
+                <td>{{ userStory.date|date('Y-m-d') }}</td>
+                <td>{{ userStory.label }}</td>
+                <td>{{ userStory.storyPoints }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+    <script src="/bundles/endroidcalendarscrum/js/canvasjs.min.js"></script>
 
     <script type="text/javascript">
         window.onload = function() {
             let chart = new CanvasJS.Chart("chartContainer", {
                 title: {
-                    text: "",
+                    text: "{{ sprintDefinition.label }}",
                     margin: 0
                 },
                 toolTip: {
@@ -34,7 +49,7 @@
                 data: [
                     {
                         type: "stackedArea",
-                        name: "{{ sprintDefinition.label }}",
+                        name: "Story points",
                         showInLegend: "false",
                         dataPoints: [
                             {% set max = 0 %}

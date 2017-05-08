@@ -25,6 +25,7 @@ class Sprint
      * @var DateTime
      */
     protected $dateEnd;
+
     /**
      * @var SprintDefinition
      */
