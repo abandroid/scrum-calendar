@@ -85,7 +85,7 @@ class Sprint
 
         $userStories = [];
         foreach ($events as $event) {
-            preg_match('#(.*) [a-z]+([0-9]+)#i', $event->getTitle(), $matches);
+            preg_match('#(.*) [a-z]*([0-9]+)#i', $event->getTitle(), $matches);
             $userStory = new UserStory($matches[1], $event->getDateStart(), intval($matches[2]), $this);
             $userStories[] = $userStory;
         }
@@ -112,40 +112,5 @@ class Sprint
         }
 
         return $userStories;
-    }
-
-    public function getData()
-    {
-
-
-        $sprintData = [
-            'label' => $this->definition->getLabel(),
-            'days' => [],
-            'cumulative' => 0,
-        ];
-
-        $currentDate = clone $dateStart;
-        $interval = new DateInterval('P1D');
-        while ($currentDate < $dateEnd) {
-            $sprintData['days'][$currentDate->format('Y-m-d')] = [
-                'total' => 0,
-                'date' => clone $currentDate,
-                'tooltip' => '',
-                'label' => '',
-            ];
-            $currentDate->add($interval);
-        }
-
-        foreach ($calendar->getEvents($dateStart, $dateEnd) as $event) {
-            $date = $event->getDateStart()->format('Y-m-d');
-            preg_match('#(.*) (.)([0-9]+)#i', $event->getTitle(), $matches);
-
-            $sprintData['days'][$date]['label'] = $date == date('Y-m-d') ? 'Today' : '';
-            $sprintData['days'][$date]['tooltip'] .= $matches[1].' ('.$matches[3].')<br />';
-            $sprintData['days'][$date]['total'] += $matches[3];
-            $sprintData['cumulative'] += $matches[3];
-        }
-
-        return $sprintData;
     }
 }
