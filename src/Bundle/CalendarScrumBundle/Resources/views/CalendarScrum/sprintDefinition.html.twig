@@ -18,7 +18,7 @@
             {% if userStory.date.format('U') >= '-1 day'|date('U') %}
             <tr>
                 <td>{{ userStory.date|date('Y-m-d') }}</td>
-                <td>{{ userStory.label }}</td>
+                <td><a href="https://calendar.google.com" target="_blank">{{ userStory.label }}</a></td>
                 <td>{{ userStory.storyPoints }}</td>
             </tr>
             {% endif %}

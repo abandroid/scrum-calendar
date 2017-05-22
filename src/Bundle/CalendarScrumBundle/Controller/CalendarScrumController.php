@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\CalendarScrum\Bundle\Controller;
+namespace Endroid\CalendarScrum\Bundle\CalendarScrumBundle\Controller;
 
 use Endroid\CalendarScrum\SprintDefinitionRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

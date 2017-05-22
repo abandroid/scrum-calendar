@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\CalendarScrum\Bundle\DependencyInjection;
+namespace Endroid\CalendarScrum\Bundle\CalendarScrumBundle\DependencyInjection;
 
 use DateInterval;
 use DateTime;
