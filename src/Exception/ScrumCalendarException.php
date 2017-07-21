@@ -7,10 +7,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\CalendarScrum\Exception;
+namespace Endroid\ScrumCalendar\Exception;
 
 use Exception;
 
-class CalendarScrumException extends Exception
+class ScrumCalendarException extends Exception
 {
 }

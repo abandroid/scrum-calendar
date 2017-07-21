@@ -21,7 +21,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Endroid\CalendarScrum\Bundle\EndroidCalendarScrumBundle(),
+            new Endroid\ScrumCalendar\Bundle\EndroidScrumCalendarBundle(),
         ];
 
         return $bundles;

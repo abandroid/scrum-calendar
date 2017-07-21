@@ -7,10 +7,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\CalendarScrum\Bundle\CalendarScrumBundle;
+namespace Endroid\ScrumCalendar\Bundle\ScrumCalendarBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class EndroidCalendarScrumBundle extends Bundle
+class EndroidScrumCalendarBundle extends Bundle
 {
 }

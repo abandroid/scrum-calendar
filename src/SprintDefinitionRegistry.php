@@ -7,9 +7,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\CalendarScrum;
+namespace Endroid\ScrumCalendar;
 
-use Endroid\CalendarScrum\Exception\SprintDefinitionNotFoundException;
+use Endroid\ScrumCalendar\Exception\SprintDefinitionNotFoundException;
 
 class SprintDefinitionRegistry
 {

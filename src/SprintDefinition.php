@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\CalendarScrum;
+namespace Endroid\ScrumCalendar;
 
 use DateInterval;
 use DateTime;

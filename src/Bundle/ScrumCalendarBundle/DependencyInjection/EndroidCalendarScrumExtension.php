@@ -7,11 +7,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\CalendarScrum\Bundle\CalendarScrumBundle\DependencyInjection;
+namespace Endroid\ScrumCalendar\Bundle\ScrumCalendarBundle\DependencyInjection;
 
 use DateInterval;
 use DateTime;
-use Endroid\CalendarScrum\SprintDefinition;
+use Endroid\ScrumCalendar\SprintDefinition;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
 
-class EndroidCalendarScrumExtension extends Extension
+class EndroidScrumCalendarExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -32,7 +32,7 @@ class EndroidCalendarScrumExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        $sprintManagerDefinition = $container->getDefinition('endroid_calendar_scrum.sprint_definition_registry');
+        $sprintManagerDefinition = $container->getDefinition('endroid_scrum_calendar.sprint_definition_registry');
 
         foreach ($config['sprint_definitions'] as $name => $sprint) {
             $dateStartDefinition = new Definition(DateTime::class);

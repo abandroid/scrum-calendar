@@ -7,8 +7,8 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\CalendarScrum\Exception;
+namespace Endroid\ScrumCalendar\Exception;
 
-class SprintDefinitionNotFoundException extends CalendarScrumException
+class SprintDefinitionNotFoundException extends ScrumCalendarException
 {
 }

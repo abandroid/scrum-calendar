@@ -7,14 +7,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\CalendarScrum\Bundle\CalendarScrumBundle\Controller;
+namespace Endroid\ScrumCalendar\Bundle\ScrumCalendarBundle\Controller;
 
-use Endroid\CalendarScrum\SprintDefinitionRegistry;
+use Endroid\ScrumCalendar\SprintDefinitionRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class CalendarScrumController extends Controller
+class ScrumCalendarController extends Controller
 {
     /**
      * @Route("/")

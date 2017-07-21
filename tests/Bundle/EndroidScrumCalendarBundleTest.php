@@ -7,11 +7,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\CalendarScrum\Tests\Bundle;
+namespace Endroid\ScrumCalendar\Tests\Bundle;
 
 use PHPUnit\Framework\TestCase;
 
-class EndroidCalendarScrumBundleTest extends TestCase
+class EndroidScrumCalendarBundleTest extends TestCase
 {
     public function testNoTestsYet()
     {

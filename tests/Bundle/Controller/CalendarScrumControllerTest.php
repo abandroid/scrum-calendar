@@ -7,17 +7,17 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\CalendarScrum\Tests\Bundle\Controller;
+namespace Endroid\ScrumCalendar\Tests\Bundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class CalendarScrumControllerTest extends WebTestCase
+class ScrumCalendarControllerTest extends WebTestCase
 {
     public function testGenerateAction()
     {
         $client = static::createClient();
-        $client->request('GET', $client->getContainer()->get('router')->generate('endroid_calendar_scrum_index'));
+        $client->request('GET', $client->getContainer()->get('router')->generate('endroid_scrum_calendar_index'));
 
         $response = $client->getResponse();
 

@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\CalendarScrum\Bundle\CalendarScrumBundle\DependencyInjection;
+namespace Endroid\ScrumCalendar\Bundle\ScrumCalendarBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -22,7 +22,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
 
         $treeBuilder
-            ->root('endroid_calendar_scrum')
+            ->root('endroid_scrum_calendar')
                 ->children()
                     ->arrayNode('sprint_definitions')
                         ->prototype('array')

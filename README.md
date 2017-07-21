@@ -1,4 +1,4 @@
-Calendar Scrum
+Scrum Calendar
 ==============
 
 *By [endroid](http://endroid.nl/)*
