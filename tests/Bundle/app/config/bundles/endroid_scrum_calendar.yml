@@ -1,4 +1,4 @@
-endroid_calendar_scrum:
+endroid_scrum_calendar:
     sprint_definitions:
         scrum_calendar_1:
             label: Scrum Calendar 1

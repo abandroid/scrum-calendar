@@ -17,21 +17,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ScrumCalendarController extends Controller
 {
     /**
-     * @Route("/")
-     * @Template()
-     *
-     * @return array
-     */
-    public function indexAction()
-    {
-        $sprintDefinitions = $this->getSprintDefinitionRegistry()->getAll();
-
-        return [
-            'sprintDefinitions' => $sprintDefinitions
-        ];
-    }
-
-    /**
      * @Route("/{name}")
      * @Template()
      *
@@ -52,6 +37,6 @@ class ScrumCalendarController extends Controller
      */
     protected function getSprintDefinitionRegistry()
     {
-        return $this->get('endroid_calendar_scrum.sprint_definition_registry');
+        return $this->get('endroid_scrum_calendar.sprint_definition_registry');
     }
 }
